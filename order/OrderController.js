@@ -17,7 +17,7 @@ router.post('/:id', function (req, res) {
 */
     Order.findByIdAndUpdate(
         {user: req.params.id},
-        {$push: {"cart": {item_id: req.body.item_id, name: req.body.item_name, totalQty: req.body.totalQty, totalPrice: req.body.totalPrice }}},
+        {$push: {"cart": {item_id:    req.body.item_id, name: req.body.item_name, totalQty: req.body.totalQty, totalPrice: req.body.totalPrice }}},
         {safe: true, upsert: true, new : true},
         function(err, model) {
             console.log(err);
