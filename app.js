@@ -11,4 +11,7 @@ app.use('/users', UserController);
 var ProductController = require('./product/ProductController');
 app.use('/products', ProductController);
 
+var ProductController = require('./order/OrderController');
+app.use('/orders', ProductController);
+
 module.exports = app;
