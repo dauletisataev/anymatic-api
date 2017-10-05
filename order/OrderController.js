@@ -15,7 +15,7 @@ router.post('/:id', function (req, res) {
             res.status(200).send(user);
         });
 */
-    Contact.findByIdAndUpdate(
+    Order.findByIdAndUpdate(
         req.params.id,
         {$push: {"cart": {item_id: req.body.item_id, name: req.body.item_name, totalQty: req.body.totalQty, totalPrice: req.body.totalPrice }}},
         {safe: true, upsert: true, new : true},
