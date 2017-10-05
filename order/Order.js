@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');  
+var Schema = mongoose.Schema;
 var OrderSchema = new mongoose.Schema({  
   user: Schema.Types.ObjectId,
   cart: [
@@ -10,5 +11,5 @@ var OrderSchema = new mongoose.Schema({
   	}
   ]
 });
-mongoose.model('Product', UserSchema);
-module.exports = mongoose.model('Product');
+mongoose.model('Order', OrderSchema);
+module.exports = mongoose.model('Order');
