@@ -6,23 +6,28 @@ var Order = require('./Order');
  
 // CREATES A NEW USER
 router.post('/:id', function (req, res) {
-    /*Order.create({
-            name : req.body.name,
-            price : req.body.price
+    Order.create({
+            user_id : req.body.user_id,
+            cart: [{
+                item_id: "asdfadsfasdf",
+                item_name: "asdfasdfasdf",
+                totalQty: 12,
+                totalPrice: 3232
+            }]
         }, 
         function (err, user) {
             if (err) return res.status(500).send("There was a problem adding the information to the database.");
             res.status(200).send(user);
         });
-*/
-    Order.findByIdAndUpdate(
+
+    /*Order.findByIdAndUpdate(
         {user_id: req.params.id},
         {$push: {"cart": {item_id:    req.body.item_id, name: req.body.item_name, totalQty: req.body.totalQty, totalPrice: req.body.totalPrice }}},
         {safe: true, upsert: true, new : true},
         function(err, model) {
             console.log(err);
         }
-    );
+    );*/
 });
 // RETURNS ALL THE USERS IN THE DATABASE
 router.get('/', function (req, res) {
