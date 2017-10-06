@@ -8,18 +8,8 @@ var Order = require('../order/Order');
 var response = {};
 
 router.post('/', function (req, res) {
-    var orderId;
-    Order.create({
-        user_id : req.body.name,
-        cart : []
-    }, 
-    function (err, order) {
-        if (err) return res.status(500).send("There was a problem adding the information to the database.");
-        res.status(200).send(order);
-        orderId = order._id;
-    });
-
-    /*User.create({
+    var orderId mongoose.Types.ObjectId();;
+    User.create({
             name : req.body.name,
             email : req.body.email,
             password : req.body.password,
@@ -29,7 +19,7 @@ router.post('/', function (req, res) {
             if (err) return res.status(500).send("There was a problem adding the information to the database.");
 
             res.status(200).send(user);
-        });*/
+        });
 });
 // RETURNS ALL THE USERS IN THE DATABASE
 router.get('/', function (req, res) {

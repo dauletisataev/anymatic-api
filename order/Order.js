@@ -1,7 +1,6 @@
 var mongoose = require('mongoose');  
 var Schema = mongoose.Schema;
-var OrderSchema = new mongoose.Schema({  
-  user_id:  {type: Schema.Types.ObjectId, ref: 'User'},
+var OrderSchema = new mongoose.Schema({ 
   cart: [
   	{
   		item_id: String,
