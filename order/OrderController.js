@@ -20,8 +20,7 @@ router.post('/:id', function (req, res) {
             res.status(200).send(user);
         });*/
 
-    Order.findByIdAndUpdate(
-        {"_id" : req.params.id},
+    Order.findByIdAndUpdate(req.params.id,
         {
             $push: {"cart": {"item_id":    req.body.item_id, "name": req.body.item_name, "totalQty": req.body.totalQty, "totalPrice": req.body.totalPrice }},
             $set: {"user_id" : "daulet_a_tak"}
