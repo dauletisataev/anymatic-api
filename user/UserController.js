@@ -11,7 +11,7 @@ router.post('/', function (req, res) {
     var orderId;
     Order.create({
         user_id : req.body.name,
-        cart : [],
+        cart : []
     }, 
     function (err, order) {
         if (err) return res.status(500).send("There was a problem adding the information to the database.");
