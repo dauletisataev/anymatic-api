@@ -1,14 +1,19 @@
 var express = require('express');
 var router = express.Router();
+
 var bodyParser = require('body-parser');
+var mongoose = require('mongoose');  
+
+
 router.use(bodyParser.urlencoded({ extended: true }));
 var User = require('./User');
 var Order = require('../order/Order');
 // CREATES A NEW USER
 var response = {};
 
+
 router.post('/', function (req, res) {
-    var orderId mongoose.Types.ObjectId();;
+    var orderId = mongoose.Types.ObjectId();;
     User.create({
             name : req.body.name,
             email : req.body.email,
