@@ -26,8 +26,9 @@ router.post('/:id', function (req, res) {
             $set: {"user_id" : req.body.user_id}
         },
         {safe: true, upsert: true, new : true},
-        function(err, model) {
-            console.log(err);
+        function (err, user) {
+            if (err) return res.status(500).send("There was a problem inserting order.");
+            res.status(200).send(user);
         }
     );
 });
