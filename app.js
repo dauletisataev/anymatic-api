@@ -18,6 +18,6 @@ var OrderController = require('./order/OrderController');
 app.use('/orders', OrderController);
 
 var login = require('./login');
-app.use('/login', login);
+app.use('/sign', login);
 
 module.exports = app;
