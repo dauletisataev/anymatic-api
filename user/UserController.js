@@ -27,7 +27,26 @@ router.post('/', function (req, res) {
     var password = req.body.password;
 
     var orderId = mongoose.Types.ObjectId();
-        User.create({
+    var newUser = new User();
+
+    newUser.email=email;
+    newUser.name = name;
+    newUser.password = newUser.encryptPassword(password);
+    newUser.order_id = orderId;
+
+    newUser.save(function (err, user) {
+            if (err)  {
+                var error = {};
+                error.error = 1;
+                error.err_msg = "There was a problem adding the information to the database.";
+                return res.status(500).send(error);
+            }
+            response.error = false;
+            responce.uid = user._id;
+            response.user = user;
+            res.status(200).send(response);
+        });
+        /*User.create({
             name : req.body.name,
             email : req.body.price,
             password : User.encryptPassword(password),
@@ -44,7 +63,7 @@ router.post('/', function (req, res) {
             responce.uid = user._id;
             response.user = user;
             res.status(200).send(response);
-        });
+        });*/
     /*if (!name || !email || !password || !name.trim() || !email.trim() || !password.trim()) {
         res.status(400).json({message: 'Invalid Request !'});
     } else {
