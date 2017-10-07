@@ -84,14 +84,14 @@ router.post('/authenticate', (req, res) => {
 //RETURNS A SINGLE USER
 router.get('/:id', function (req, res) {
 
-    if (checkToken(req)) {
+    //if (checkToken(req)) {
         profile.getProfile(req.params.id)
         .then(result => res.json(result))
         .catch(err => res.status(err.status).json({ message: err.message }));
 
     } else {
-        res.status(401).json({ message: 'Invalid Token !' });
-    }
+   //     res.status(401).json({ message: 'Invalid Token !' });
+   // }
 });
 
 // DELETES A USER FROM THE DATABASE
