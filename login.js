@@ -6,7 +6,7 @@ router.use(bodyParser.urlencoded({ extended: true }));
 var User = require('./user/User');
 
 
-router.post('/login', (req, res) => {
+router.post('/', (req, res) => {
 
     var email = req.body.email;
     var password = req.body.password;
