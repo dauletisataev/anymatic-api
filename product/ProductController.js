@@ -10,18 +10,27 @@ router.post('/', function (req, res) {
             name : req.body.name,
             price : req.body.price,
             photoUrl : req.body.photoUrl,
-            ownerId : req.body.ownerId
+            ownerName : req.body.ownerName
         }, 
         function (err, user) {
-            if (err) return res.status(500).send("There was a problem adding the information to the database.");
+            if (err) return res.status(200).send("There was a problem adding the information to the database.");
             res.status(200).send(user);
         });
 });
 // RETURNS ALL THE USERS IN THE DATABASE
 router.get('/', function (req, res) {
-    Product.find({}, function (err, users) {
-        if (err) return res.status(500).send("There was a problem finding the users.");
-        res.status(200).send(users);
+    Product.find({}, function (err, products) {
+
+        if (err) {
+            var error = {};
+            error.error = true;
+            error.error_msg = "There was a problem finding the users.";
+           return res.status(500).send(error_msg); 
+        }
+        var response = {};
+        response.error = false;
+        response.products = products;
+        res.status(200).send(response);
     });
 });
 
@@ -38,7 +47,7 @@ router.get('/:id', function (req, res) {
 router.delete('/:id', function (req, res) {
     Product.findByIdAndRemove(req.params.id, function (err, product) {
         if (err) return res.status(500).send("There was a problem deleting the user.");
-        res.status(200).send("Product "+ product.name +" was deleted.");
+        res.status(200).send("Product  was deleted.");
     });
 });
 
