@@ -92,46 +92,7 @@ router.get('/', function (req, res) {
 });
 
 
-router.post('/login', (req, res) => {
 
-    var email = req.body.email;
-    var password = req.body.password;
-
-    User.findOne({'email': email}, function(err, user){
-        var response = {};
-        if (err) {
-            response.tag = "login";
-            response.error = 1;
-            response.success = 0;
-            response.error_msg = "There was a problem adding the information to the database.";
-            return res.status(500).send(response);
-        }
-         response = {};
-        if (!user) {
-            response.tag = "login";
-            response.error = 1;
-            response.success = 0;
-            response.error_msg = "No user found";
-            return res.status(500).send(response);
-        }
-         response = {};
-        if(!user.validPassword(password)){
-            response.tag = "login";
-            response.error = 1;
-            response.success = 0;
-            response.error_msg = "Wrong password";
-            return res.status(500).send(response);
-        }
-         response = {};
-        response.error = false;
-        response.uid = user._id;
-        response.user = user;
-
-        res.status(200).send(response);
-            
-    });
-
-});
 
  
 //RETURNS A SINGLE USER
