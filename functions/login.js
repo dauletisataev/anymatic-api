@@ -4,7 +4,7 @@ const user = require('../user/User');
 const bcrypt = require('bcryptjs');
 
 exports.loginUser = (email, password) => 
-
+	console.log(email, password);
 	new Promise((resolve,reject) => {
 
 		user.find({email: email})
