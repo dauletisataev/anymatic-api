@@ -4,7 +4,7 @@ var router = express.Router();
 var bodyParser = require('body-parser');
 router.use(bodyParser.urlencoded({ extended: true }));
 var User = require('./user/User');
-
+var mongoose = require('mongoose');  
 
 router.post('/in', (req, res) => {
 
