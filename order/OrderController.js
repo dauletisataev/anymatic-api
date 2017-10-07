@@ -12,26 +12,61 @@ router.post('/:id', function (req, res) {
             $push: {"cart": {"item_id":    req.body.item_id, "name": req.body.item_name, "totalQty": req.body.totalQty, "totalPrice": req.body.totalPrice }}
         },
         {safe: true, upsert: true, new : true},
-        function (err, user) {
-            if (err) return res.status(500).send("There was a problem inserting order.");
-            res.status(200).send(user);
+        function (err, order) {
+            if (err)  {
+                var error ={};
+                error.error = true;
+                error.error_msg = "There was a problem inserting order.";
+                return res.status(200).send(error);
+            }
+
+            var response = {};
+            response.error = false;
+            response.order = order;
+            res.status(200).send(response);
         }
     );
 });
 // RETURNS ALL THE USERS IN THE DATABASE
 router.get('/', function (req, res) {
-    Order.find({}, function (err, users) {
-        if (err) return res.status(500).send("There was a problem finding the users.");
-        res.status(200).send(users);
+    Order.find({}, function (err, orders) {
+
+        if (err)  {
+                var error ={};
+                error.error = true;
+                error.error_msg = "There was a problem finding orders.";
+                return res.status(200).send(error);
+        }
+
+        var response = {};
+        response.error = false;
+        response.orders = orders;
+        res.status(200).send(orders);
     });
 });
 
 //RETURNS A SINGLE USER
 router.get('/:id', function (req, res) {
-    Order.findById(req.params.id, function (err, user) {
-        if (err) return res.status(500).send("There was a problem finding the user.");
-        if (!user) return res.status(404).send("No user found.");
-        res.status(200).send(user);
+    Order.findById(req.params.id, function (err, order) {
+         
+        
+        if (err)  {
+                var error ={};
+                error.error = true;
+                error.error_msg = "There was a problem finding orders.";
+                return res.status(200).send(error);
+        }
+
+        if (!order){
+            var error ={};
+            error.error = true;
+            error.error_msg = "No user found.";
+            return res.status(200).send(error);   
+        }
+        var response = {};
+        response.error = false;
+        response.order = order;
+        res.status(200).send(order);
     });
 });
 
