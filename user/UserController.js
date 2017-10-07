@@ -18,7 +18,7 @@ router.use(bodyParser.urlencoded({ extended: true }));
 var User = require('./User');
 var Order = require('../order/Order');
 // CREATES A NEW USER
-var response = {};
+
 
 
 router.post('/', function (req, res) {
@@ -41,6 +41,7 @@ router.post('/', function (req, res) {
                 error.err_msg = "There was a problem adding the information to the database.";
                 return res.status(500).send(error);
             }
+            var response = {};
             response.error = false;
             response.uid = user._id;
             response.user = user;
@@ -82,6 +83,7 @@ router.get('/', function (req, res) {
 
 
     User.find({}, function (err, users) {
+        var response = {};
         if (err) return res.status(500).send("There was a problem finding the users.");
         response.error = false;
         response.users = users;
@@ -96,6 +98,7 @@ router.post('/login', (req, res) => {
     var password = req.body.password;
 
     User.findOne({'email': email}, function(err, user){
+        var response = {};
         if (err) {
             response.tag = "login";
             response.error = 1;
@@ -103,6 +106,7 @@ router.post('/login', (req, res) => {
             response.error_msg = "There was a problem adding the information to the database.";
             return res.status(500).send(response);
         }
+         response = {};
         if (!user) {
             response.tag = "login";
             response.error = 1;
@@ -110,6 +114,7 @@ router.post('/login', (req, res) => {
             response.error_msg = "No user found";
             return res.status(500).send(response);
         }
+         response = {};
         if(!user.validPassword(password)){
             response.tag = "login";
             response.error = 1;
@@ -117,6 +122,7 @@ router.post('/login', (req, res) => {
             response.error_msg = "Wrong password";
             return res.status(500).send(response);
         }
+         response = {};
         response.error = false;
         response.uid = user._id;
         response.user = user;
