@@ -41,7 +41,7 @@ router.get('/', function (req, res) {
         var response = {};
         response.error = false;
         response.orders = orders;
-        res.status(200).send(orders);
+        res.status(200).send(response);
     });
 });
 
@@ -66,7 +66,7 @@ router.get('/:id', function (req, res) {
         var response = {};
         response.error = false;
         response.order = order;
-        res.status(200).send(order);
+        res.status(200).send(response);
     });
 });
 
