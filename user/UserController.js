@@ -42,7 +42,7 @@ router.post('/', function (req, res) {
                 return res.status(500).send(error);
             }
             response.error = false;
-            responce.uid = user._id;
+            response.uid = user._id;
             response.user = user;
             res.status(200).send(response);
         });
