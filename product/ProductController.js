@@ -36,9 +36,9 @@ router.get('/:id', function (req, res) {
 
 // DELETES A USER FROM THE DATABASE
 router.delete('/:id', function (req, res) {
-    Product.findByIdAndRemove(req.params.id, function (err, user) {
+    Product.findByIdAndRemove(req.params.id, function (err, product) {
         if (err) return res.status(500).send("There was a problem deleting the user.");
-        res.status(200).send("User "+ user.name +" was deleted.");
+        res.status(200).send("Product "+ product.name +" was deleted.");
     });
 });
 
