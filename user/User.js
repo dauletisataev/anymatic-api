@@ -10,6 +10,12 @@ var UserSchema = new mongoose.Schema({
   temp_password	: String,
   temp_password_time: String
 });
-mongoose.Promise = global.Promise;
+UserSchema.methods.encryptPassword = function(password){
+ return bcrypt.hashSync(password, bcrypt.genSaltSync(5), null);
+};
+
+UserSchema.methods.validPassword = function(password){
+	return bcrypt.compareSync(password, this.password);
+};
 mongoose.model('User', UserSchema);
 module.exports = mongoose.model('User');

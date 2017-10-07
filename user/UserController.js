@@ -5,13 +5,14 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');  
 
 
+var passport = require('passport');
+/*
 const auth = require('basic-auth');
 const jwt = require('jsonwebtoken');
-
 const register = require('../functions/register');
 const login = require('../functions/login');
 const profile = require('../functions/profile');
-const password = require('../functions/password');
+const password = require('../functions/password');*/
 
 router.use(bodyParser.urlencoded({ extended: true }));
 var User = require('./User');
@@ -24,23 +25,36 @@ router.post('/', function (req, res) {
     var name = req.body.name;
     var email = req.body.email;
     var password = req.body.password;
+
     var orderId = mongoose.Types.ObjectId();
-    if (!name || !email || !password || !name.trim() || !email.trim() || !password.trim()) {
-
+        User.create({
+            name : req.body.name,
+            email : req.body.price,
+            password : User.encryptPassword(password),
+            order_id : orderId
+        }, 
+        function (err, user) {
+            if (err)  {
+                var error = {};
+                error.error = 1;
+                error.err_msg = "There was a problem adding the information to the database.";
+                return res.status(500).send(error);
+            }
+            response.error = false;
+            responce.uid = user._id;
+            response.user = user;
+            res.status(200).send(response);
+        });
+    /*if (!name || !email || !password || !name.trim() || !email.trim() || !password.trim()) {
         res.status(400).json({message: 'Invalid Request !'});
-
     } else {
-
         register.registerUser(name, email, password, orderId)
-
         .then(result => {
-
             res.setHeader('Location', '/users/'+email);
             res.status(result.status).json({ message: result.message })
         })
-
         .catch(err => res.status(err.status).json({ message: err.message }));
-    }
+    }*/
     
 
 });
@@ -50,37 +64,51 @@ router.get('/', function (req, res) {
 
     User.find({}, function (err, users) {
         if (err) return res.status(500).send("There was a problem finding the users.");
-        response.err = false;
+        response.error = false;
         response.users = users;
         res.status(200).send(response);
     });
 });
 
 
-router.post('/authenticate', (req, res) => {
+router.post('/login', (req, res) => {
 
-    const credentials = auth(req);
+    var email = req.body.email;
+    var password = req.body.password;
 
-    if (!credentials) {
+    User.findOne({'email': email}, function(err, user){
+        if (err) {
+            response.tag = "login";
+            response.error = 1;
+            response.success = 0;
+            response.error_msg = "There was a problem adding the information to the database.";
+            return res.status(500).send(response);
+        }
+        if (!user) {
+            response.tag = "login";
+            response.error = 1;
+            response.success = 0;
+            response.error_msg = "No user found";
+            return res.status(500).send(response);
+        }
+        if(!user.validPassword(password)){
+            response.tag = "login";
+            response.error = 1;
+            response.success = 0;
+            response.error_msg = "Wrong password";
+            return res.status(500).send(response);
+        }
+        response.error = false;
+        response.uid = user._id;
+        response.user = user;
 
-        res.status(400).json({ message: 'Invalid Request !' });
+        res.status(200).send(response);
+            
+    });
 
-    } else {
-
-        login.loginUser(credentials.name, credentials.pass)
-
-        .then(result => {
-
-            const token = jwt.sign(result, config.secret, { expiresIn: 1440 });
-
-            res.status(result.status).json({ message: result.message, token: token });
-
-        })
-
-        .catch(err => res.status(err.status).json({ message: err.message }));
-    }
 });
 
+ 
 //RETURNS A SINGLE USER
 router.get('/:id', function (req, res) {
 
