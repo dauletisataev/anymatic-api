@@ -15,7 +15,7 @@ router.post('/:id/:cart_id', function (req, res) {
 
     Order.Update( { "_id": req.params.id, "cart.items.id": req.params.cart_id },
         {
-            $push: {"cart.&.items": {"item_id": item_id, "name": item_name, "count": count, "price": price }}
+            $push: {"cart.&.items": {"item_id": item_id, "name": name, "count": count, "price": price }}
         },
         {safe: true, upsert: true, new : true},
         function (err, order) {
