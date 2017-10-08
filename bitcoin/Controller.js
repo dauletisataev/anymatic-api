@@ -15,15 +15,20 @@ var client = new Client({
   'version':'2017-10-07'
 });
 
-client.getAccounts({}, function(err, accounts) {
-  accounts.forEach(function(acct) {
-    console.log(acct.name + ': ' + acct.balance.amount + ' ' + acct.balance.currency);
-    acct.getTransactions(null, function(err, txns) {
-      txns.forEach(function(txn) {
-        console.log('txn: ' + txn.id);
-      });
-    });
-  });
+router.get('/', function (req, res) {
+	client.getAccounts({}, function(err, accounts) {
+	  accounts.forEach(function(acct) {
+	    console.log(acct.name + ': ' + acct.balance.amount + ' ' + acct.balance.currency);
+	    acct.getTransactions(null, function(err, txns) {
+	      txns.forEach(function(txn) {
+	        console.log('txn: ' + txn.id);
+	      });
+	    });
+	  });
+	});
+	res.staus(200).send("Account: "+acct.name+" balance: "+acct.balance.amount+" currency: "+acct.balance.currency);
+
 });
+
 
 module.exports = router;
