@@ -22,10 +22,10 @@ router.get('/', function (req, res) {
 	    acct.getTransactions(null, function(err, txns) {
 	      txns.forEach(function(txn) {
 	        console.log('txn: ' + txn.id);
-	        res.status(200).send("Account: "+acct.name+" balance: "+acct.balance.amount+" currency: "+acct.balance.currency);
 	      });
 	    });
 	  });
+	  res.status(200).send("Account: "+acct.name+" balance: "+acct.balance.amount+" currency: "+acct.balance.currency);
 	});
 
 
