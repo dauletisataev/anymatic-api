@@ -17,7 +17,7 @@ router.post('/:id/:cart_id', function (req, res) {
     Order.findByIdAndUpdate( {"_id":mongoose.Types.ObjectId(), "cart.order_id" : mongoose.Types.ObjectId()  },
         {
             $push: {"cart":[]},
-            $set: {"cart.$.order_id": mongoose.Types.ObjectId() }
+            $set: {"cart.order_id": mongoose.Types.ObjectId()}
         },
         {safe: true, upsert: true, new : true},
         function (err, order) {
