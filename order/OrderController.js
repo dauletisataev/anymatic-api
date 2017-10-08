@@ -3,21 +3,19 @@ var router = express.Router();
 var bodyParser = require('body-parser');
 router.use(bodyParser.urlencoded({ extended: true }));
 var Order = require('./Order');
- var mongoose = require('mongoose');  
-
+ 
 // CREATES A NEW USER
-router.post('/:id/:cart_id', function (req, res) {
-        var item_id = req.body.item_id;
+router.post('/:id', function (req, res) {
+        var itemId = req.body.item_id;
         var name = req.body.item_name;
-        var count = req.body.count;
-        var price = req.body.price;
+        var totalQty = req.body.totalQty;
+        var totalPrice = req.body.totalPrice;
 
-        console.log(item_id, name, count, price);
+        console.log(item_id, name, totalQty, totalPrice);
 
-    Order.findByIdAndUpdate( {"_id":mongoose.Types.ObjectId(), "cart.order_id" : mongoose.Types.ObjectId()  },
+    Order.findByIdAndUpdate( req.params.id,
         {
-            $push: {"cart":[]},
-            $set: {"cart.order_id": mongoose.Types.ObjectId()}
+            $push: {"cart": {"item_id": item_id, "name": item_name, "totalQty": totalQty, "totalPrice": totalPrice }}
         },
         {safe: true, upsert: true, new : true},
         function (err, order) {
