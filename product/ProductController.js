@@ -6,9 +6,10 @@ var Product = require('./Product');
  
 // CREATES A NEW USER
 router.post('/', function (req, res) {
+    var price = parseInt(req.body.price);
     Product.create({
             name : req.body.name,
-            price : parseInt(req.body.price),
+            price : price ,
             photoUrl : req.body.photoUrl,
             ownerName : req.body.ownerName
         }, 
