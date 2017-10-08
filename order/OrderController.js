@@ -6,10 +6,16 @@ var Order = require('./Order');
  
 // CREATES A NEW USER
 router.post('/:id', function (req, res) {
+        var itemId = req.body.item_id;
+        var name = req.body.item_name;
+        var totalQty = req.body.totalQty;
+        var totalPrice = req.body.totalPrice;
+
+        console.log(item_id, name, totalQty, totalPrice);
 
     Order.findByIdAndUpdate( req.params.id,
         {
-            $push: {"cart": {"item_id":    req.body.item_id, "name": req.body.item_name, "totalQty": req.body.totalQty, "totalPrice": req.body.totalPrice }}
+            $push: {"cart": {"item_id": item_id, "name": item_name, "totalQty": totalQty, "totalPrice": totalPrice }}
         },
         {safe: true, upsert: true, new : true},
         function (err, order) {
@@ -27,6 +33,9 @@ router.post('/:id', function (req, res) {
         }
     );
 });
+
+
+
 // RETURNS ALL THE USERS IN THE DATABASE
 router.get('/', function (req, res) {
     Order.find({}, function (err, orders) {
