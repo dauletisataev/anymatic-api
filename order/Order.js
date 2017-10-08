@@ -8,6 +8,7 @@ var OrderSchema = new mongoose.Schema({
   		totalPrice: Number,
   		items:[
   			{
+  				item_id: String,
   				name: String,
   				price: Number,
   				count: Number

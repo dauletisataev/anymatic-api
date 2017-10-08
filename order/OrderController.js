@@ -11,7 +11,7 @@ router.post('/:id/:cart_id', function (req, res) {
         var count = req.body.count;
         var price = req.body.price;
 
-        console.log(item_id, name, totalQty, totalPrice);
+        console.log(item_id, name, count, price);
 
     Order.Update( { "_id": req.params.id, "cart.items.id": req.params.cart_id },
         {
