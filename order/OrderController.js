@@ -13,7 +13,7 @@ router.post('/:id/:cart_id', function (req, res) {
 
         console.log(item_id, name, count, price);
 
-    Order.findByIdAndUpdate( { "_id": req.params.id, "cart.items.id": req.params.cart_id },
+    Order.findByIdAndUpdate( req.params.id,
         {
             $push: {"cart.&.items": {"item_id": item_id, "name": name, "count": count, "price": price }}
         },
