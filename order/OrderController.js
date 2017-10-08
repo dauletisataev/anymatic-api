@@ -5,17 +5,17 @@ router.use(bodyParser.urlencoded({ extended: true }));
 var Order = require('./Order');
  
 // CREATES A NEW USER
-router.post('/:id', function (req, res) {
+router.post('/:id/:cart_id', function (req, res) {
         var itemId = req.body.item_id;
         var name = req.body.item_name;
-        var totalQty = req.body.totalQty;
-        var totalPrice = req.body.totalPrice;
+        var count = req.body.count;
+        var price = req.body.price;
 
         console.log(item_id, name, totalQty, totalPrice);
 
-    Order.findByIdAndUpdate( req.params.id,
+    Order.Update( { "_id": req.params.id, "cart.items.id": req.params.cart_id },
         {
-            $push: {"cart": {"item_id": item_id, "name": item_name, "totalQty": totalQty, "totalPrice": totalPrice }}
+            $push: {"cart.&.items": {"item_id": item_id, "name": item_name, "count": count, "price": price }}
         },
         {safe: true, upsert: true, new : true},
         function (err, order) {

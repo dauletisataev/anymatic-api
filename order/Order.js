@@ -3,10 +3,16 @@ var Schema = mongoose.Schema;
 var OrderSchema = new mongoose.Schema({ 
   cart: [
   	{
-  		item_id: String,
-  		item_name: String,
+  		created_at: { type: Date, default: Date.now },
   		totalQty: Number,
-  		totalPrice: Number
+  		totalPrice: Number,
+  		items:[
+  			{
+  				name: String,
+  				price: Number,
+  				count: Number
+  			}
+  		]
   	}
   ]
 });
