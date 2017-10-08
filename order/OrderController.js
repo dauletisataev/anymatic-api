@@ -6,7 +6,7 @@ var Order = require('./Order');
  
 // CREATES A NEW USER
 router.post('/:id/:cart_id', function (req, res) {
-        var itemId = req.body.item_id;
+        var item_id = req.body.item_id;
         var name = req.body.item_name;
         var count = req.body.count;
         var price = req.body.price;
