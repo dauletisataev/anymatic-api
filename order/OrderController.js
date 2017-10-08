@@ -14,7 +14,7 @@ router.post('/:id/:cart_id', function (req, res) {
 
         console.log(item_id, name, count, price);
 
-    Order.findByIdAndUpdate( mongoose.Types.ObjectId(),
+    Order.findByIdAndUpdate( {"_id":mongoose.Types.ObjectId(), "cart.order_id" :   mongoose.Types.ObjectId()  },
         {
             $push: {"cart":[]}
         },

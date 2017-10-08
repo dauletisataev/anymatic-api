@@ -2,7 +2,8 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var OrderSchema = new mongoose.Schema({ 
   cart: [
-  	{
+  	{	
+  		order_id: String,
   		created_at: { type: Date, default: Date.now },
   		totalQty: Number,
   		totalPrice: Number,
