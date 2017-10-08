@@ -8,9 +8,7 @@ var UserSchema = new mongoose.Schema({
   email: String,
   password: String,
   order_id: Schema.Types.ObjectId,
-  created_at: String,
-  temp_password	: String,
-  temp_password_time: String
+  isStore: Boolean
 });
 UserSchema.methods.encryptPassword = function(password){
  return bcrypt.hashSync(password, bcrypt.genSaltSync(5), null);

@@ -33,7 +33,7 @@ router.post('/', function (req, res) {
     newUser.name = name;
     newUser.password = newUser.encryptPassword(password);
     newUser.order_id = orderId;
-
+    newUser.isStore = req.body.isStore;
     newUser.save(function (err, user) {
             if (err)  {
                 var error = {};
