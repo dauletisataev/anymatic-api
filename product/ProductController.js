@@ -8,7 +8,7 @@ var Product = require('./Product');
 router.post('/', function (req, res) {
     Product.create({
             name : req.body.name,
-            price : req.body.price,
+            price : parseInt(req.body.price),
             photoUrl : req.body.photoUrl,
             ownerName : req.body.ownerName
         }, 
