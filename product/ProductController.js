@@ -14,8 +14,16 @@ router.post('/', function (req, res) {
             ownerName : req.body.ownerName
         }, 
         function (err, user) {
-            if (err) return res.status(200).send("There was a problem adding the information to the database.");
-            res.status(200).send(user);
+            if (err) {
+                var error = {};
+                error.error = true;
+                error.error_msg = "There was a problem adding the information to the database.";
+                return res.status(200).send(error);
+            } 
+            var response = {};
+            response.error = false;
+            response.user = user;
+            res.status(200).send(response);
         });
 });
 // RETURNS ALL THE USERS IN THE DATABASE
