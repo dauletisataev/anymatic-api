@@ -18,7 +18,8 @@ var OrderController = require('./order/OrderController');
 app.use('/orders', OrderController);
 
 var BitCoin = require('./bitCoin/Controller');
-app.use('/bitcoin', BitCoin); 
+
+app.use('/bitcoin',  BitCoin); 
 
 
 var login = require('./login');
