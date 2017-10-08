@@ -26,7 +26,7 @@ router.get('/', function (req, res) {
 	    });
 	  });
 	});
-	res.staus(200).send("Account: "+acct.name+" balance: "+acct.balance.amount+" currency: "+acct.balance.currency);
+	res.status(200).send("Account: "+acct.name+" balance: "+acct.balance.amount+" currency: "+acct.balance.currency);
 
 });
 
