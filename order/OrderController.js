@@ -3,7 +3,8 @@ var router = express.Router();
 var bodyParser = require('body-parser');
 router.use(bodyParser.urlencoded({ extended: true }));
 var Order = require('./Order');
- 
+ var mongoose = require('mongoose');  
+
 // CREATES A NEW USER
 router.post('/:id/:cart_id', function (req, res) {
         var item_id = req.body.item_id;
@@ -13,7 +14,7 @@ router.post('/:id/:cart_id', function (req, res) {
 
         console.log(item_id, name, count, price);
 
-    Order.findByIdAndUpdate( req.params.id,
+    Order.findByIdAndUpdate( mongoose.Types.ObjectId(),
         {
             $push: {"cart.&.items": {"item_id": item_id, "name": name, "count": count, "price": price }}
         },
